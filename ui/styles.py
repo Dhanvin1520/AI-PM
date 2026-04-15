@@ -3,39 +3,32 @@ import streamlit as st
 def apply_custom_styles():
     st.markdown("""
     <style>
-        /* Global styles and typography */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        
-        /* Apply subtle grid background to the main app container for that "modern developer tool" look */
+
         .stApp {
             background-color: #f8fafc;
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 24px 24px;
+            opacity: 1 !important;
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
         }
-        
-        /* Hide top header bar in streamlit for cleaner look */
-        /* use display:none so the header doesn't leave a translucent overlay */
-        header {display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important;}
 
-        /* Ensure the main app containers are not dimmed by any overlay or reduced opacity */
-        .stApp, [data-testid="stAppViewContainer"], .block-container, .main, [data-testid="stVerticalBlock"] {
+        header {display: none !important;}
+
+        section[data-testid="stAppViewContainer"],
+        .block-container,
+        .main {
             opacity: 1 !important;
             filter: none !important;
-            background-color: transparent !important;
         }
 
-        /* Remove any accidental full-screen translucent overlays Streamlit or third-party libs may inject */
-        div[style*="background-color: rgba"] {
-            display: none !important;
+        h1, h2, h3, p, span, div, label {
+            color: #0f172a !important;
         }
-        div[style*="backdrop-filter"] {
-            display: none !important;
-        }
-        
+
         .hero-section {
             background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0) 100%);
             padding: 3rem 0 2rem 0;
@@ -48,7 +41,7 @@ def apply_custom_styles():
             justify-content: center;
             text-align: center;
         }
-        
+
         .title-main {
             font-size: 3rem;
             font-weight: 800;
@@ -57,7 +50,7 @@ def apply_custom_styles():
             text-align: center;
             letter-spacing: -0.04em;
         }
-        
+
         .subtitle {
             text-align: center;
             color: #64748b;
@@ -67,8 +60,7 @@ def apply_custom_styles():
             margin: 0 auto 2.5rem auto;
             line-height: 1.5;
         }
-        
-        /* Clean SaaS Inputs */
+
         .stTextInput > div > div > input {
             background-color: #ffffff !important;
             color: #0f172a !important;
@@ -77,15 +69,13 @@ def apply_custom_styles():
             padding: 0.85rem 1rem;
             font-size: 1rem;
             box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-            transition: all 0.2s ease;
         }
-        
+
         .stTextInput > div > div > input:focus {
             border-color: #6366f1 !important;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2) !important;
         }
-        
-        /* Professional Primary Button */
+
         .stButton > button {
             background-color: #4f46e5 !important;
             color: white !important;
@@ -93,23 +83,13 @@ def apply_custom_styles():
             border-radius: 8px !important;
             padding: 0.75rem 2rem !important;
             font-weight: 600 !important;
-            letter-spacing: 0.025em;
             width: 100% !important;
-            transition: all 0.2s ease !important;
-            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2), 0 2px 4px -1px rgba(79, 70, 229, 0.1) !important;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
         }
-        
+
         .stButton > button:hover {
             background-color: #4338ca !important;
-            transform: translateY(-1px) !important;
-            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -2px rgba(79, 70, 229, 0.15) !important;
-        }
-        
-        /* Clean White Cards (Specific class handling) */
-        .stVerticalBlock:has(div.stExpander) > div, 
-        .stVerticalBlock:has(input) > div,
-        .stVerticalBlock:has(div.stMarkdown) > div {
-             /* Target standard content blocks */
+            transform: translateY(-1px);
         }
 
         [data-testid="stVerticalBlockBorderWrapper"] {
@@ -121,11 +101,8 @@ def apply_custom_styles():
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
         }
 
-        /* Prevent empty boxes on side columns */
         [data-testid="column"] > [data-testid="stVerticalBlock"] > [data-testid="stVerticalBlockBorderWrapper"]:empty {
             display: none !important;
-            border: none !important;
-            box-shadow: none !important;
         }
     </style>
     """, unsafe_allow_html=True)
