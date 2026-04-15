@@ -3,7 +3,7 @@ import logging
 from functools import lru_cache
 from typing import Optional
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -12,7 +12,7 @@ def extract_text_from_image(image_bytes):
     try:
         url = 'https://api.ocr.space/parse/image'
         
-        # Free API key specifically for general public use
+
         payload = {
             'apikey': 'helloworld',
             'isOverlayRequired': False,
@@ -30,7 +30,10 @@ def extract_text_from_image(image_bytes):
         
         if result.get('ParsedResults') and len(result['ParsedResults']) > 0:
             extracted = result['ParsedResults'][0]['ParsedText']
-            return extracted.strip()
+            if extracted:
+                logger.info(f"Successfully extracted {len(extracted)} characters")
+                return extracted.strip()
+        logger.warning("No text detected in image")
         return "No text detected."
     except Exception as e:
         return f"Error extracting text: {str(e)}"
