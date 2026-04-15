@@ -51,29 +51,46 @@ if generate:
             try:
                 image_bytes = uploaded_file.getvalue()
                 ad_text = extract_text_from_image(image_bytes)
-                soup = scrape_landing_page(target_url)
 
-                if soup:
-                    for a in soup.find_all('a'):
+                soup_original = scrape_landing_page(target_url)
+                soup_modified = scrape_landing_page(target_url)
+
+                if soup_original and soup_modified:
+
+                    for a in soup_modified.find_all('a'):
                         a['target'] = '_blank'
 
-                    process_and_rewrite(soup, ad_text)
+                    process_and_rewrite(soup_modified, ad_text)
 
-                    st.markdown("## 📊 Your Optimized Landing Page")
+                    st.markdown("## 📊 Comparison View")
 
-                    final_html = str(soup)
+                    original_html = str(soup_original)
+                    modified_html = str(soup_modified)
+
                     parsed_url = target_url.split('/')
                     base_url = f"{parsed_url[0]}//{parsed_url[2]}"
-                    final_html = final_html.replace("<head>", f"<head><base href='{base_url}/'>")
 
-                    col1, col2 = st.columns([4, 1])
+                    original_html = original_html.replace("<head>", f"<head><base href='{base_url}/'>")
+                    modified_html = modified_html.replace("<head>", f"<head><base href='{base_url}/'>")
 
-                    with col2:
-                        b64 = base64.b64encode(final_html.encode()).decode()
-                        st.markdown(f'<a href="data:text/html;base64,{b64}" download="optimized.html" style="display:block;background:#4f46e5;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:600;">⬇️ Download</a>', unsafe_allow_html=True)
+                    col1, col2 = st.columns(2)
 
                     with col1:
-                        st.components.v1.html(final_html, height=600, scrolling=True)
+                        st.markdown("### 🌐 Original Page")
+                        st.components.v1.html(original_html, height=600, scrolling=True)
+
+                    with col2:
+                        st.markdown("### 🚀 Personalized Page")
+                        st.components.v1.html(modified_html, height=600, scrolling=True)
+
+                    st.markdown("### ⬇️ Download Personalized Page")
+
+                    b64 = base64.b64encode(modified_html.encode()).decode()
+                    st.markdown(
+                        f'<a href="data:text/html;base64,{b64}" download="optimized.html" '
+                        f'style="display:block;background:#4f46e5;color:white;padding:12px;text-align:center;border-radius:8px;text-decoration:none;font-weight:600;">Download</a>',
+                        unsafe_allow_html=True
+                    )
 
             except Exception as e:
                 st.error(str(e))
