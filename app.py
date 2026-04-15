@@ -50,7 +50,7 @@ with center_col:
     
     if generate_pressed:
         if uploaded_file is None or not target_url:
-            st.error("⚠️ Please upload an ad creative and provide a landing page URL to proceed.")
+            st.error("⚠️ Missing required fields: Please upload an ad creative image and provide a valid landing page URL.")
         else:
             with st.spinner("🔄 Processing your ad creative and optimizing landing page..."):
                 # Processing workflow with progress tracking
