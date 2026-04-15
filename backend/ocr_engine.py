@@ -1,4 +1,5 @@
 import requests
+import json
 import logging
 from functools import lru_cache
 from typing import Optional
@@ -35,5 +36,15 @@ def extract_text_from_image(image_bytes):
                 return extracted.strip()
         logger.warning("No text detected in image")
         return "No text detected."
+    except requests.Timeout:
+        logger.error("OCR API request timeout")
+        return "Error: OCR service timeout. Please try again."
+    except requests.RequestException as e:
+        logger.error(f"OCR API request failed: {str(e)}")
+        return "Error: Failed to connect to OCR service."
+    except json.JSONDecodeError:
+        logger.error("Invalid JSON response from OCR API")
+        return "Error: Invalid response from OCR service."
     except Exception as e:
-        return f"Error extracting text: {str(e)}"
+        logger.error(f"Unexpected error in OCR: {str(e)}")
+        return f"Error: {str(e)}"
