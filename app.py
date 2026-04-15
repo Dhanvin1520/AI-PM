@@ -1,5 +1,4 @@
 import streamlit as st
-import time
 import base64
 
 from ui.styles import apply_custom_styles
@@ -11,37 +10,20 @@ st.set_page_config(page_title="Troopod AI PM Assignment", page_icon="✨", layou
 
 apply_custom_styles()
 
-st.markdown('''
+st.markdown("""
 <div class="hero-section">
     <h1 class="title-main">Landing Page Personalizer Engine</h1>
     <p class="subtitle">Data-driven landing page optimization aligned with your ad creatives.</p>
 </div>
-''', unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-_, center_col, _ = st.columns([1, 3, 1])
+st.markdown("### 1. Upload Ad Creative")
+uploaded_file = st.file_uploader("", type=['jpg','jpeg','png'])
 
-with center_col:
-    with st.container(border=True):
-        st.markdown("### 1. Upload Ad Creative")
-        st.caption("Upload the display ad or creative asset from your campaign.")
-        uploaded_file = st.file_uploader("", type=['jpg', 'jpeg', 'png'])
-        if uploaded_file:
-            st.image(uploaded_file, use_container_width=True)
+st.markdown("### 2. Target Landing Page")
+target_url = st.text_input("", placeholder="https://example.com")
 
-    with st.container(border=True):
-        st.markdown("### 2. Target Landing Page")
-        st.caption("The exact URL that the ad currently points to.")
-        target_url = st.text_input("", placeholder="https://example.com")
-
-    with st.expander("⚙️ How this Agentic Engine works"):
-        st.markdown("""
-        1. Ad Parsing using OCR  
-        2. Landing Page DOM extraction  
-        3. LLM rewrite using Groq  
-        4. Live HTML injection  
-        """)
-
-    generate = st.button("Generate Personalized Layout", type="primary", use_container_width=True)
+generate = st.button("Generate Personalized Layout")
 
 if generate:
     if not uploaded_file or not target_url:
@@ -62,25 +44,25 @@ if generate:
 
                     process_and_rewrite(soup_modified, ad_text)
 
-                    st.markdown("## 📊 Comparison View")
+                    st.markdown("## Comparison View")
 
                     original_html = str(soup_original)
                     modified_html = str(soup_modified)
 
-                    parsed_url = target_url.split('/')
-                    base_url = f"{parsed_url[0]}//{parsed_url[2]}"
+                    parsed = target_url.split('/')
+                    base = f"{parsed[0]}//{parsed[2]}"
 
-                    original_html = original_html.replace("<head>", f"<head><base href='{base_url}/'>")
-                    modified_html = modified_html.replace("<head>", f"<head><base href='{base_url}/'>")
+                    original_html = original_html.replace("<head>", f"<head><base href='{base}/'>")
+                    modified_html = modified_html.replace("<head>", f"<head><base href='{base}/'>")
 
                     col1, col2 = st.columns(2)
 
                     with col1:
-                        st.markdown("### 🌐 Original Page")
+                        st.markdown("###  Original Page")
                         st.components.v1.html(original_html, height=600, scrolling=True)
 
                     with col2:
-                        st.markdown("### 🚀 Personalized Page")
+                        st.markdown("###  Personalized Page")
                         st.components.v1.html(modified_html, height=600, scrolling=True)
 
                     st.markdown("### ⬇️ Download Personalized Page")
