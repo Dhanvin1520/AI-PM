@@ -83,9 +83,14 @@ with col_right:
 
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
     generate = st.button("Generate Personalized Layout", use_container_width=True)
-    st.markdown("""
+st.markdown("""
 <div style="text-align:center; margin-top:10px;">
-    <span style="font-size:24px; color:#94a3b8; animation: bounce 1.5s infinite;">↓</span>
+    <div style="font-size:14px; color:#94a3b8; margin-bottom:5px;">
+        Scroll down to see your layout
+    </div>
+    <span style="font-size:24px; color:#94a3b8; animation: bounce 1.5s infinite;">
+        ↓
+    </span>
 </div>
 
 <style>
