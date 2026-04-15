@@ -4,49 +4,40 @@ def apply_custom_styles():
     st.markdown("""
     <style>
         .stApp {
-            background-color: #ffffff;
+            background: #ffffff !important;
         }
 
-        header {display: none;}
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        /* REMOVE WHITE OVERLAY */
+        .block-container {
+            background: transparent !important;
+            padding-top: 2rem !important;
         }
 
-        h1, h2, h3, p {
-            color: #111827;
+        section[data-testid="stAppViewContainer"] {
+            background: transparent !important;
         }
 
-        .hero-section {
-            text-align: center;
-            padding: 2.5rem 0;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 2rem;
+        /* REMOVE TOP BLACK BAR */
+        header {visibility: hidden;}
+
+        /* TEXT */
+        body, h1, h2, h3, p {
+            color: #111827 !important;
+            font-family: -apple-system, sans-serif;
         }
 
-        .title-main {
-            font-size: 2.8rem;
-            font-weight: 800;
+        /* CENTER CONTAINER */
+        .main .block-container {
+            max-width: 900px;
+            margin: auto;
         }
 
-        .subtitle {
-            color: #6b7280;
-            margin-top: 8px;
-        }
-
-        /* FIX UPLOADER */
+        /* FILE UPLOADER FIX */
         [data-testid="stFileUploader"] {
             background: #ffffff !important;
             border: 2px dashed #d1d5db !important;
             border-radius: 12px !important;
             padding: 20px !important;
-        }
-
-        /* INPUT */
-        .stTextInput input {
-            border: 1px solid #d1d5db !important;
-            border-radius: 8px !important;
-            padding: 10px !important;
         }
 
         /* BUTTON */
@@ -56,10 +47,13 @@ def apply_custom_styles():
             border-radius: 8px;
             padding: 12px;
             font-weight: 600;
+            width: 100%;
         }
 
-        .stButton button:hover {
-            opacity: 0.9;
+        /* INPUT */
+        .stTextInput input {
+            border-radius: 8px !important;
+            border: 1px solid #d1d5db !important;
         }
 
         /* CARDS */
@@ -70,5 +64,6 @@ def apply_custom_styles():
             padding: 20px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
+
     </style>
     """, unsafe_allow_html=True)

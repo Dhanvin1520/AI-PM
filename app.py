@@ -6,7 +6,7 @@ from backend.ocr_engine import extract_text_from_image
 from backend.scraper import scrape_landing_page
 from backend.llm_engine import process_and_rewrite
 
-st.set_page_config(page_title="Troopod AI PM Assignment", page_icon="✨", layout="wide")
+st.set_page_config(page_title="Troopod AI PM ", page_icon="", layout="centered")
 
 apply_custom_styles()
 
@@ -55,7 +55,7 @@ if generate:
 
                     process_and_rewrite(soup_modified, ad_text)
 
-                    st.markdown("## 📊 Comparison View")
+                    st.markdown("##  Comparison View")
 
                     original_html = str(soup_original)
                     modified_html = str(soup_modified)
@@ -69,14 +69,14 @@ if generate:
                     col1, col2 = st.columns(2)
 
                     with col1:
-                        st.markdown("### 🌐 Original Page")
+                        st.markdown("### Original Page")
                         st.components.v1.html(original_html, height=600)
 
                     with col2:
-                        st.markdown("### 🚀 Personalized Page")
+                        st.markdown("### Personalized Page")
                         st.components.v1.html(modified_html, height=600)
 
-                    st.markdown("### ⬇️ Download")
+                    st.markdown("### ⬇ Download")
 
                     b64 = base64.b64encode(modified_html.encode()).decode()
                     st.markdown(
