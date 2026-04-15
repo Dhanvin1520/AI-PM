@@ -20,8 +20,19 @@ st.markdown("""
 st.markdown("### 1. Upload Ad Creative")
 uploaded_file = st.file_uploader("", type=['jpg','jpeg','png'])
 
+if uploaded_file:
+    st.image(uploaded_file, caption="Uploaded Image", use_container_width=True)
+
 st.markdown("### 2. Target Landing Page")
 target_url = st.text_input("", placeholder="https://example.com")
+
+with st.expander("⚙️ How this Agent works"):
+    st.markdown("""
+    1. Extracts text from ad  
+    2. Scrapes landing page  
+    3. Uses AI to rewrite content  
+    4. Shows optimized version  
+    """)
 
 generate = st.button("Generate Personalized Layout")
 
@@ -44,7 +55,7 @@ if generate:
 
                     process_and_rewrite(soup_modified, ad_text)
 
-                    st.markdown("## Comparison View")
+                    st.markdown("## 📊 Comparison View")
 
                     original_html = str(soup_original)
                     modified_html = str(soup_modified)
@@ -58,14 +69,14 @@ if generate:
                     col1, col2 = st.columns(2)
 
                     with col1:
-                        st.markdown("###  Original Page")
-                        st.components.v1.html(original_html, height=600, scrolling=True)
+                        st.markdown("### 🌐 Original Page")
+                        st.components.v1.html(original_html, height=600)
 
                     with col2:
-                        st.markdown("###  Personalized Page")
-                        st.components.v1.html(modified_html, height=600, scrolling=True)
+                        st.markdown("### 🚀 Personalized Page")
+                        st.components.v1.html(modified_html, height=600)
 
-                    st.markdown("### ⬇️ Download Personalized Page")
+                    st.markdown("### ⬇️ Download")
 
                     b64 = base64.b64encode(modified_html.encode()).decode()
                     st.markdown(
