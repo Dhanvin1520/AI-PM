@@ -14,7 +14,7 @@ st.set_page_config(
 
 apply_custom_styles()
 
-# ── Header ──────────────────────────────────────────────────────────────────
+
 st.markdown("""
 <div class="hero-section">
     <div class="hero-badge">AI-Powered CRO Tool</div>
@@ -23,7 +23,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Step indicators ─────────────────────────────────────────────────────────
+
 st.markdown("""
 <div class="steps-row">
     <div class="step-chip active">01 &nbsp; Upload Creative</div>
@@ -36,7 +36,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# ── Input columns ───────────────────────────────────────────────────────────
+
 col_left, col_right = st.columns(2, gap="large")
 
 with col_left:
@@ -83,8 +83,20 @@ with col_right:
 
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
     generate = st.button("Generate Personalized Layout", use_container_width=True)
+    st.markdown("""
+<div style="text-align:center; margin-top:10px;">
+    <span style="font-size:24px; color:#94a3b8; animation: bounce 1.5s infinite;">↓</span>
+</div>
 
-# ── Processing ──────────────────────────────────────────────────────────────
+<style>
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 if generate:
     if not uploaded_file or not target_url:
         st.error("Please upload an ad creative and enter a target URL before generating.")
@@ -113,7 +125,7 @@ if generate:
                         "<head>", f"<head><base href='{base_url}/'>"
                     )
 
-                    # ── Results header + download ───────────────────────────
+                   
                     st.markdown("<div style='height:32px'></div>", unsafe_allow_html=True)
                     st.markdown('<hr class="section-hr">', unsafe_allow_html=True)
 
@@ -132,7 +144,7 @@ if generate:
                             unsafe_allow_html=True,
                         )
 
-                    # ── CRO Metrics ─────────────────────────────────────────
+
                     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
                     st.markdown('<p class="section-label">CRO Impact Metrics</p>', unsafe_allow_html=True)
 
@@ -152,7 +164,7 @@ if generate:
                         </div>
                         """, unsafe_allow_html=True)
 
-                    # ── Changes summary ─────────────────────────────────────
+
                     st.markdown("<div style='height:16px'></div>", unsafe_allow_html=True)
                     ch1, ch2, ch3 = st.columns(3, gap="small")
                     changes_data = [
@@ -168,7 +180,7 @@ if generate:
                         </div>
                         """, unsafe_allow_html=True)
 
-                    # ── Side-by-side comparison ─────────────────────────────
+
                     st.markdown("<div style='height:24px'></div>", unsafe_allow_html=True)
                     st.markdown('<p class="section-label">Side-by-Side Comparison</p>', unsafe_allow_html=True)
 
