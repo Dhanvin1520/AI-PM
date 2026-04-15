@@ -1,6 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
+import logging
+from typing import Optional
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def scrape_landing_page(url):
     """Scrapes HTML from the given URL and returns the parsed BeautifulSoup object"""
@@ -9,6 +15,8 @@ def scrape_landing_page(url):
     }
     try:
         response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        logger.info(f"Successfully scraped {url} - Status: {response.status_code}")
         response.raise_for_status()
         return BeautifulSoup(response.text, 'html.parser')
     except Exception as e:
