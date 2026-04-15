@@ -82,7 +82,7 @@ with col_right:
         """, unsafe_allow_html=True)
 
     st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
-    generate = st.button("Generate Personalized Layout", use_container_width=True)
+    generate = st.button("Generate Personalized Layout ( Scroll down )", use_container_width=True)
 st.markdown("""
 <div style="text-align:center; margin-top:10px;">
     <div style="font-size:14px; color:#94a3b8; margin-bottom:5px;">
