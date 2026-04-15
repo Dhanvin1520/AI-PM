@@ -18,7 +18,23 @@ def apply_custom_styles():
         }
         
         /* Hide top header bar in streamlit for cleaner look */
-        header {visibility: hidden;}
+        /* use display:none so the header doesn't leave a translucent overlay */
+        header {display: none !important; height: 0 !important; padding: 0 !important; margin: 0 !important;}
+
+        /* Ensure the main app containers are not dimmed by any overlay or reduced opacity */
+        .stApp, [data-testid="stAppViewContainer"], .block-container, .main, [data-testid="stVerticalBlock"] {
+            opacity: 1 !important;
+            filter: none !important;
+            background-color: transparent !important;
+        }
+
+        /* Remove any accidental full-screen translucent overlays Streamlit or third-party libs may inject */
+        div[style*="background-color: rgba"] {
+            display: none !important;
+        }
+        div[style*="backdrop-filter"] {
+            display: none !important;
+        }
         
         .hero-section {
             background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0) 100%);
