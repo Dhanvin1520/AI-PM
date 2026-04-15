@@ -17,8 +17,14 @@ def scrape_landing_page(url):
         response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         logger.info(f"Successfully scraped {url} - Status: {response.status_code}")
-        response.raise_for_status()
         return BeautifulSoup(response.text, 'html.parser')
-    except Exception as e:
-        st.error(f"Failed to fetch landing page: {str(e)}")
+    except requests.Timeout:
+        error_msg = "Request timeout: Landing page took too long to load"
+        logger.error(error_msg)
+        st.error(error_msg)
+        return None
+    except requests.RequestException as e:
+        error_msg = f"Failed to fetch landing page: {str(e)}"
+        logger.error(error_msg)
+        st.error(error_msg)
         return None
