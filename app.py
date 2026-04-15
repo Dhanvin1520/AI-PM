@@ -2,16 +2,16 @@ import streamlit as st
 import time
 import base64
 
-# Import modularized components
+
 from ui.styles import apply_custom_styles
 from backend.ocr_engine import extract_text_from_image
 from backend.scraper import scrape_landing_page
 from backend.llm_engine import process_and_rewrite
 
-# Page Configuration
+
 st.set_page_config(page_title="Troopod AI PM Assignment", page_icon="✨", layout="wide")
 
-# Apply centralized CSS
+
 apply_custom_styles()
 
 st.markdown('''
@@ -21,7 +21,7 @@ st.markdown('''
 </div>
 ''', unsafe_allow_html=True)
 
-# Layout: Centered Stack
+
 _, center_col, _ = st.columns([1, 3, 1])
 
 with center_col:
@@ -45,7 +45,7 @@ with center_col:
         4. **Live Re-Rendering**: We immediately inject the optimized variant directly back into the live HTML.
         """)
 
-    # Process Button Logic
+
     generate_pressed = st.button("Generate Personalized Layout", type="primary", use_container_width=True)
     
     if generate_pressed:
@@ -91,7 +91,7 @@ if generate_pressed:
             if success:
                 st.markdown("<br>", unsafe_allow_html=True)
                 
-                # Simple results section
+
                 st.markdown("## 📊 Your Optimized Landing Page")
                 
                 final_html = str(soup)
@@ -99,7 +99,7 @@ if generate_pressed:
                 base_url = f"{parsed_url[0]}//{parsed_url[2]}"
                 final_html = final_html.replace("<head>", f"<head><base href='{base_url}/'>")
                 
-                # Download button and preview
+       
                 col_preview, col_download = st.columns([4, 1])
                 
                 with col_download:

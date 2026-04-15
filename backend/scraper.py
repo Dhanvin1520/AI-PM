@@ -4,7 +4,7 @@ import streamlit as st
 import logging
 from typing import Optional
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
