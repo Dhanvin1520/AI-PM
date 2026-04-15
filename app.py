@@ -130,10 +130,6 @@ if generate_pressed:
                     col_left, col_right = st.columns([2, 1])
                     with col_left:
                         st.markdown("### 📊 AI Optimization Results")
-                    with col_right:
-                        b64 = base64.b64encode(final_html.encode('utf-8')).decode()
-                        href = f'<a href="data:text/html;base64,{b64}" download="personalized_page.html" style="background-color: #4f46e5; padding: 12px 24px; border-radius: 8px; color: white; text-decoration: none; display: block; text-align: center; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.4);">Download Optimized HTML</a>'
-                        st.markdown(href, unsafe_allow_html=True)
 
                     # Simulated Impact Metrics
                     m1, m2, m3 = st.columns(3)
@@ -147,7 +143,13 @@ if generate_pressed:
                     tab1, tab2 = st.tabs(["✨ Personalized Output", "🌐 Original Site"])
                     
                     with tab1:
-                        st.components.v1.html(final_html, height=800, scrolling=True)
+                        col_tab_left, col_tab_right = st.columns([3, 1])
+                        with col_tab_left:
+                            st.components.v1.html(final_html, height=800, scrolling=True)
+                        with col_tab_right:
+                            b64 = base64.b64encode(final_html.encode('utf-8')).decode()
+                            href = f'<a href="data:text/html;base64,{b64}" download="personalized_page.html" style="background-color: #4f46e5; padding: 12px 24px; border-radius: 8px; color: white; text-decoration: none; display: block; text-align: center; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.4); margin-top: 2rem;">⬇️ Download<br>Optimized HTML</a>'
+                            st.markdown(href, unsafe_allow_html=True)
                         
                     with tab2:
                         st.components.v1.html(original_html, height=800, scrolling=True)
