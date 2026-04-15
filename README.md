@@ -3,7 +3,7 @@
 This repository contains the complete, deployed codebase for the **AI Product Manager Assignment**. It is a full-stack Python application that securely integrates Multimodal OCR, Web Scraping, and Large Language Models to dynamically personalize landing pages according to conversion rate optimization (CRO) principles.
 
 ## 🚀 Live Demo
-**[https://b2836f9d0d6a56.lhr.life](https://b2836f9d0d6a56.lhr.life)** *(Live Development Tunnel)*
+**[https://vf6b3nktuh5gbkezkplzjy.streamlit.app/](https://vf6b3nktuh5gbkezkplzjy.streamlit.app/)** *(Live Development Tunnel)*
 
 ---
 
