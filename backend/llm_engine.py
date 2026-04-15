@@ -9,8 +9,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 logger = logging.getLogger(__name__)
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=GROQ_API_KEY)
+
+# NOTE: Don't initialize the Groq client at import time. On Streamlit Cloud
+# the environment variable will be provided via Secrets and importing this
+# module before secrets are available can cause the app to crash on startup.
+# Initialize the client lazily inside `process_and_rewrite`.
 
 def process_and_rewrite(soup, ad_text):
     """
@@ -62,6 +65,14 @@ Instructions:
     prompt = f"Original Texts:\n{json.dumps(prompt_payload, indent=2)}\n\nOnly return the JSON list."
     
     try:
+        # Ensure API key is available at runtime (Streamlit Cloud uses Secrets)
+        groq_key = os.getenv("GROQ_API_KEY")
+        if not groq_key:
+            st.error("GROQ_API_KEY not found. Add it under Streamlit app Secrets (Settings → Secrets)")
+            return False
+
+        client = Groq(api_key=groq_key)
+
         completion = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
